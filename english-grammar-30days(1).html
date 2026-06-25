@@ -1,0 +1,2275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Grammar in 30 Days</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --bg: #0d0f1a;
+    --surface: #13162a;
+    --card: #191d33;
+    --border: #252a45;
+    --accent: #4f8eff;
+    --accent2: #a78bfa;
+    --accent3: #34d399;
+    --warn: #f59e0b;
+    --text: #e8eaf6;
+    --muted: #8892b0;
+    --white: #ffffff;
+    --red: #f87171;
+    --pink: #f472b6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Sora', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #0d0f1a 0%, #0f1535 50%, #130d2a 100%);
+    padding: 80px 24px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(79,142,255,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(79,142,255,0.3);
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+    background: rgba(79,142,255,0.07);
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #fff 30%, var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 540px;
+    margin: 0 auto 40px;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent);
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .stat-label { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  /* NAV */
+  .nav-bar {
+    display: flex;
+    gap: 8px;
+    padding: 20px 24px;
+    overflow-x: auto;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-bar::-webkit-scrollbar { display: none; }
+  .week-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 8px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .week-btn:hover, .week-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  /* MAIN */
+  .main { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+
+  /* WEEK SECTION */
+  .week-section { display: none; }
+  .week-section.visible { display: block; }
+
+  .week-header {
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .week-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent2);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .week-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 6px; }
+  .week-desc { color: var(--muted); font-size: 0.95rem; }
+
+  /* DAY CARD */
+  .day-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .day-card:hover { border-color: rgba(79,142,255,0.4); }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .day-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    background: rgba(79,142,255,0.1);
+    border: 1px solid rgba(79,142,255,0.25);
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+  .day-title { font-size: 1rem; font-weight: 600; flex: 1; }
+  .day-topic {
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--surface);
+    padding: 3px 10px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+  }
+  .day-chevron {
+    color: var(--muted);
+    font-size: 0.8rem;
+    transition: transform 0.2s;
+  }
+  .day-card.open .day-chevron { transform: rotate(180deg); }
+
+  .day-body {
+    display: none;
+    padding: 0 24px 24px;
+    border-top: 1px solid var(--border);
+  }
+  .day-card.open .day-body { display: block; }
+
+  /* SECTIONS inside day */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin: 24px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* FORMULA BOX */
+  .formula {
+    background: rgba(79,142,255,0.07);
+    border: 1px solid rgba(79,142,255,0.25);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--text);
+    margin-bottom: 12px;
+    line-height: 1.8;
+  }
+  .formula .f-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .formula .f-pos { color: var(--accent3); }
+  .formula .f-neg { color: var(--red); }
+  .formula .f-q { color: var(--warn); }
+  .formula .f-key { color: var(--accent2); }
+
+  /* EXAMPLES */
+  .examples { margin-bottom: 0; }
+  .example-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.9rem;
+  }
+  .example-item:last-child { border-bottom: none; }
+  .ex-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    margin-top: 2px;
+  }
+  .ex-pos { background: rgba(52,211,153,0.15); color: var(--accent3); }
+  .ex-neg { background: rgba(248,113,113,0.15); color: var(--red); }
+  .ex-q { background: rgba(245,158,11,0.15); color: var(--warn); }
+  .ex-text { flex: 1; color: var(--text); }
+  .ex-trans { color: var(--muted); font-size: 0.8rem; display: block; margin-top: 2px; font-style: italic; }
+
+  /* TIPS */
+  .tip-box {
+    background: rgba(167,139,250,0.07);
+    border: 1px solid rgba(167,139,250,0.2);
+    border-left: 3px solid var(--accent2);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 0.88rem;
+    color: var(--text);
+    margin-top: 4px;
+    line-height: 1.7;
+  }
+  .tip-box strong { color: var(--accent2); }
+
+  /* HOMEWORK */
+  .hw-box {
+    background: rgba(245,158,11,0.06);
+    border: 1px solid rgba(245,158,11,0.22);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-top: 4px;
+  }
+  .hw-title {
+    font-size: 0.78rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--warn);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hw-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 0.88rem;
+    align-items: flex-start;
+  }
+  .hw-item:last-child { margin-bottom: 0; }
+  .hw-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--warn);
+    background: rgba(245,158,11,0.12);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .hw-text { color: var(--text); line-height: 1.6; }
+
+  /* PROGRESS BAR */
+  .progress-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .prog-label { font-size: 0.85rem; color: var(--muted); min-width: 80px; }
+  .prog-bar-wrap { flex: 1; min-width: 200px; background: var(--border); border-radius: 100px; height: 8px; }
+  .prog-bar { height: 8px; border-radius: 100px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width 0.5s; }
+  .prog-pct { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--accent); font-weight: 600; }
+
+  /* KEYWORDS */
+  .keywords { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .kw {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 6px;
+    background: rgba(167,139,250,0.1);
+    border: 1px solid rgba(167,139,250,0.2);
+    color: var(--accent2);
+  }
+
+  /* REVIEW DAY */
+  .review-card {
+    background: linear-gradient(135deg, rgba(79,142,255,0.08), rgba(167,139,250,0.08));
+    border: 1px solid rgba(79,142,255,0.3);
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .review-icon { font-size: 2.5rem; margin-bottom: 12px; display: block; }
+  .review-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+  .review-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+    font-size: 0.82rem;
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .hero { padding: 60px 16px 40px; }
+    .hero-stats { gap: 24px; }
+    .day-header { padding: 16px; gap: 10px; }
+    .day-body { padding: 0 16px 16px; }
+    .day-topic { display: none; }
+  }
+
+  /* ========== QUIZ STYLES ========== */
+  .quiz-section { display: none; }
+  .quiz-section.visible { display: block; }
+
+  .quiz-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .quiz-thumb {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .quiz-thumb:hover { border-color: rgba(79,142,255,0.5); transform: translateY(-2px); }
+  .quiz-thumb::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .quiz-thumb:hover::before { opacity: 1; }
+  .qt-icon { font-size: 1.8rem; margin-bottom: 10px; display: block; }
+  .qt-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+  .qt-meta { font-size: 0.75rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+  .qt-badge {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 100px;
+    background: rgba(79,142,255,0.1);
+    border: 1px solid rgba(79,142,255,0.2);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 1px;
+  }
+
+  /* ACTIVE QUIZ */
+  .quiz-arena { display: none; }
+  .quiz-arena.visible { display: block; }
+
+  .quiz-top-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .back-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .back-btn:hover { color: var(--text); border-color: var(--accent); }
+  .quiz-title-bar { font-size: 1.1rem; font-weight: 700; flex: 1; }
+  .quiz-score-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    background: rgba(52,211,153,0.1);
+    border: 1px solid rgba(52,211,153,0.25);
+    color: var(--accent3);
+  }
+
+  /* PROGRESS */
+  .q-progress-wrap { margin-bottom: 24px; }
+  .q-progress-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 6px;
+  }
+  .q-bar { background: var(--border); border-radius: 100px; height: 6px; }
+  .q-bar-fill { height: 6px; border-radius: 100px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width 0.4s; }
+
+  /* QUESTION CARD */
+  .q-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 16px;
+  }
+  .q-type-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .q-text {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .q-blank {
+    display: inline-block;
+    min-width: 100px;
+    border-bottom: 2px solid var(--accent);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    padding: 0 4px;
+  }
+
+  /* MCQ OPTIONS */
+  .mcq-options { display: flex; flex-direction: column; gap: 10px; }
+  .mcq-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 18px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 0.92rem;
+    font-family: 'Sora', sans-serif;
+    transition: all 0.15s;
+    text-align: left;
+    width: 100%;
+  }
+  .mcq-btn:hover:not(:disabled) { border-color: var(--accent); background: rgba(79,142,255,0.08); }
+  .mcq-btn.correct { border-color: var(--accent3); background: rgba(52,211,153,0.1); color: var(--accent3); }
+  .mcq-btn.wrong { border-color: var(--red); background: rgba(248,113,113,0.1); color: var(--red); }
+  .mcq-btn:disabled { cursor: default; }
+  .mcq-letter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    background: var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-weight: 600;
+  }
+  .mcq-btn.correct .mcq-letter { background: rgba(52,211,153,0.2); }
+  .mcq-btn.wrong .mcq-letter { background: rgba(248,113,113,0.2); }
+
+  /* FILL IN INPUT */
+  .fill-wrap { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .fill-input {
+    flex: 1;
+    min-width: 180px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 0.95rem;
+    font-family: 'Sora', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .fill-input:focus { border-color: var(--accent); }
+  .fill-input.correct { border-color: var(--accent3); background: rgba(52,211,153,0.06); color: var(--accent3); }
+  .fill-input.wrong { border-color: var(--red); background: rgba(248,113,113,0.06); color: var(--red); }
+  .fill-input:disabled { cursor: default; }
+  .check-btn {
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Sora', sans-serif;
+    transition: opacity 0.2s;
+  }
+  .check-btn:hover { opacity: 0.85; }
+  .check-btn:disabled { opacity: 0.4; cursor: default; }
+
+  /* FEEDBACK */
+  .q-feedback {
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    display: none;
+    line-height: 1.6;
+  }
+  .q-feedback.show { display: block; }
+  .q-feedback.fb-correct { background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.25); color: var(--accent3); }
+  .q-feedback.fb-wrong { background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.25); color: var(--red); }
+
+  /* NEXT BTN */
+  .next-btn {
+    display: none;
+    margin-top: 16px;
+    padding: 12px 28px;
+    border-radius: 10px;
+    border: 1px solid var(--accent);
+    background: transparent;
+    color: var(--accent);
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Sora', sans-serif;
+    transition: all 0.2s;
+  }
+  .next-btn.show { display: inline-flex; align-items: center; gap: 8px; }
+  .next-btn:hover { background: var(--accent); color: #fff; }
+
+  /* RESULTS SCREEN */
+  .results-screen {
+    display: none;
+    text-align: center;
+    padding: 48px 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+  }
+  .results-screen.show { display: block; }
+  .results-emoji { font-size: 4rem; margin-bottom: 16px; display: block; }
+  .results-title { font-size: 1.6rem; font-weight: 800; margin-bottom: 8px; }
+  .results-score {
+    font-size: 3rem;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 16px 0;
+    display: block;
+  }
+  .results-msg { color: var(--muted); margin-bottom: 28px; font-size: 0.95rem; line-height: 1.7; }
+  .retry-btn {
+    padding: 14px 32px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Sora', sans-serif;
+    margin: 0 6px;
+  }
+  .back-list-btn {
+    padding: 14px 32px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Sora', sans-serif;
+    margin: 0 6px;
+  }
+  .star-row { display: flex; justify-content: center; gap: 6px; font-size: 2rem; margin: 12px 0; }
+
+  /* REORDER (drag-drop) */
+  .reorder-words { display: flex; flex-wrap: wrap; gap: 8px; min-height: 48px; margin-bottom: 12px; padding: 10px; border-radius: 10px; border: 2px dashed var(--border); }
+  .reorder-answer { display: flex; flex-wrap: wrap; gap: 8px; min-height: 48px; margin-bottom: 12px; padding: 10px; border-radius: 10px; border: 2px dashed rgba(79,142,255,0.3); background: rgba(79,142,255,0.04); }
+  .word-chip {
+    padding: 8px 14px;
+    border-radius: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .word-chip:hover { border-color: var(--accent); color: var(--accent); }
+  .word-chip.placed { background: rgba(79,142,255,0.1); border-color: rgba(79,142,255,0.3); color: var(--accent); }
+  .word-chip.correct-chip { border-color: var(--accent3); background: rgba(52,211,153,0.1); color: var(--accent3); }
+  .word-chip.wrong-chip { border-color: var(--red); background: rgba(248,113,113,0.1); color: var(--red); }
+  .reorder-label { font-size: 0.75rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">📘 Complete English Grammar Course</div>
+  <h1>Master English Grammar<br>in 30 Days</h1>
+  <p>From To Be to Future Continuous — learn every tense and structure with clear formulas, real examples, and daily homework.</p>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-num">30</span><span class="stat-label">Study Days</span></div>
+    <div class="stat"><span class="stat-num">13</span><span class="stat-label">Grammar Topics</span></div>
+    <div class="stat"><span class="stat-num">26</span><span class="stat-label">Lessons + HW</span></div>
+    <div class="stat"><span class="stat-num">4</span><span class="stat-label">Review Days</span></div>
+  </div>
+</section>
+
+<!-- WEEK NAV -->
+<nav class="nav-bar">
+  <button class="week-btn active" onclick="showWeek('w1')">Week 1 — Basics</button>
+  <button class="week-btn" onclick="showWeek('w2')">Week 2 — Past & Have</button>
+  <button class="week-btn" onclick="showWeek('w3')">Week 3 — Perfect</button>
+  <button class="week-btn" onclick="showWeek('w4')">Week 4 — Future & Review</button>
+  <button class="week-btn" onclick="showWeek('wq')" style="border-color:rgba(167,139,250,0.4);color:var(--accent2)">🧠 Quizzes</button>
+</nav>
+
+<div class="main">
+
+<!-- ==================== WEEK 1 ==================== -->
+<div id="w1" class="week-section visible">
+  <div class="week-header">
+    <div class="week-eyebrow">Week 01</div>
+    <div class="week-title">The Foundation</div>
+    <div class="week-desc">To Be · Present Simple · Modal Verbs · Present Continuous</div>
+  </div>
+
+  <div class="progress-wrap">
+    <span class="prog-label">Week 1</span>
+    <div class="prog-bar-wrap"><div class="prog-bar" style="width:25%"></div></div>
+    <span class="prog-pct">Days 1–7</span>
+  </div>
+
+  <!-- DAY 1 -->
+  <div class="day-card" id="day1">
+    <div class="day-header" onclick="toggleDay('day1')">
+      <span class="day-num">DAY 01</span>
+      <span class="day-title">To Be — Positive, Negative & Questions</span>
+      <span class="day-topic">to be</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">📐 Formula</div>
+      <div class="formula">
+        <span class="f-label">Positive</span>
+        <span class="f-pos">Subject + am / is / are + ...</span><br>
+        <span class="f-label" style="margin-top:10px">Negative</span>
+        <span class="f-neg">Subject + am not / isn't / aren't + ...</span><br>
+        <span class="f-label" style="margin-top:10px">Question</span>
+        <span class="f-q">Am / Is / Are + Subject + ...?</span>
+      </div>
+      <div class="formula">
+        <span class="f-label">Who uses what?</span>
+        <span class="f-key">I → am &nbsp;&nbsp; He/She/It → is &nbsp;&nbsp; You/We/They → are</span>
+      </div>
+
+      <div class="section-label">💬 Examples</div>
+      <div class="examples">
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">I <b>am</b> a student.<span class="ex-trans">Men talabaman.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">She <b>is</b> a doctor.<span class="ex-trans">U (ayol) doktordir.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">They <b>are</b> happy.<span class="ex-trans">Ular xursand.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-neg">−</div><div class="ex-text">I <b>am not</b> tired.<span class="ex-trans">Men charchamadim.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-neg">−</div><div class="ex-text">He <b>isn't</b> at home.<span class="ex-trans">U uyda emas.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text"><b>Are</b> you a teacher?<span class="ex-trans">Siz o'qituvchimisiz?</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text"><b>Is</b> she married?<span class="ex-trans">U turmushga chiqqanmi?</span></div></div>
+      </div>
+
+      <div class="section-label">💡 Key Tip</div>
+      <div class="tip-box"><strong>Contractions:</strong> In speaking, we always use short forms: I'm, he's, she's, it's, we're, you're, they're. He is not → he <strong>isn't</strong>. Practice saying them fast!</div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 1</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Write 5 sentences about yourself using <b>am / is / are</b>.</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Change those 5 sentences into negative form.</div></div>
+        <div class="hw-item"><div class="hw-num">3</div><div class="hw-text">Write 3 questions using <b>Is / Are</b> to ask about a friend.</div></div>
+        <div class="hw-item"><div class="hw-num">4</div><div class="hw-text">Memorize: <em>I am · He/She/It is · You/We/They are</em>. Say it 5 times without looking.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day-card" id="day2">
+    <div class="day-header" onclick="toggleDay('day2')">
+      <span class="day-num">DAY 02</span>
+      <span class="day-title">Present Simple — Habits & Facts</span>
+      <span class="day-topic">present simple</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">📐 Formula</div>
+      <div class="formula">
+        <span class="f-label">Positive</span>
+        <span class="f-pos">Subject + V1 (he/she/it → V1+s) + ...</span><br>
+        <span class="f-label" style="margin-top:10px">Negative</span>
+        <span class="f-neg">Subject + don't / doesn't + V1 + ...</span><br>
+        <span class="f-label" style="margin-top:10px">Question</span>
+        <span class="f-q">Do / Does + Subject + V1 + ...?</span>
+      </div>
+
+      <div class="section-label">🔑 Key Words</div>
+      <div class="keywords">
+        <span class="kw">always</span><span class="kw">usually</span><span class="kw">often</span>
+        <span class="kw">sometimes</span><span class="kw">rarely</span><span class="kw">never</span>
+        <span class="kw">every day</span><span class="kw">every week</span>
+      </div>
+
+      <div class="section-label">💬 Examples</div>
+      <div class="examples">
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">I <b>work</b> every day.<span class="ex-trans">Men har kuni ishlayman.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">She <b>drinks</b> coffee every morning.<span class="ex-trans">U har ertalab qahva ichadi.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-neg">−</div><div class="ex-text">He <b>doesn't</b> eat meat.<span class="ex-trans">U go'sht yemaydi.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-neg">−</div><div class="ex-text">We <b>don't</b> live in London.<span class="ex-trans">Biz Londonda yashamaymiz.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text"><b>Do</b> you like music?<span class="ex-trans">Siz musiqani yoqtirasizmi?</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text"><b>Does</b> she speak English?<span class="ex-trans">U ingliz tilida gapladimi?</span></div></div>
+      </div>
+
+      <div class="section-label">💡 Key Tip</div>
+      <div class="tip-box"><strong>The S rule:</strong> Add -s or -es only for He / She / It in positive sentences. But in questions and negatives, use <strong>does</strong> — never add -s to the verb: ✅ Does she <strong>work</strong>? ❌ Does she <strong>works</strong>?</div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 2</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Write 6 sentences about your daily habits (what you do every day).</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Write 4 negative sentences about what you <em>don't</em> do.</div></div>
+        <div class="hw-item"><div class="hw-num">3</div><div class="hw-text">Write 3 questions using <b>Does</b> to ask about a family member.</div></div>
+        <div class="hw-item"><div class="hw-num">4</div><div class="hw-text">Fill in: She ___ (watch) TV. He ___ (not/eat) fish. Do they ___ (live) here?</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day-card" id="day3">
+    <div class="day-header" onclick="toggleDay('day3')">
+      <span class="day-num">DAY 03</span>
+      <span class="day-title">Modal Verbs — can, must, should, may</span>
+      <span class="day-topic">modal verbs</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">📐 Formula</div>
+      <div class="formula">
+        <span class="f-label">All modals — same formula:</span>
+        <span class="f-pos">Subject + modal + V1 (base) + ...</span><br>
+        <span class="f-neg" style="display:block; margin-top:6px">Subject + modal + not + V1 + ...</span><br>
+        <span class="f-q" style="display:block; margin-top:6px">Modal + Subject + V1 + ...?</span><br>
+        <br><span style="color:var(--red); font-size:0.8rem">⚠ NEVER add -s, -ed, or -ing after a modal!</span>
+      </div>
+
+      <div class="section-label">📚 Modal Meanings</div>
+      <div class="formula">
+        <span class="f-key">can</span> → ability / possibility (qila olmoq)<br>
+        <span class="f-key">must</span> → strong obligation (shart / kerak)<br>
+        <span class="f-key">should</span> → advice (kerak / maslahat)<br>
+        <span class="f-key">may</span> → possibility / polite permission (ehtimol / ruxsat)<br>
+        <span class="f-key">could</span> → past of can / polite request
+      </div>
+
+      <div class="section-label">💬 Examples</div>
+      <div class="examples">
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">I <b>can</b> swim.<span class="ex-trans">Men suzа olaman.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">You <b>should</b> study more.<span class="ex-trans">Ko'proq o'qishing kerak.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">She <b>must</b> see a doctor.<span class="ex-trans">U shifokorga borishi shart.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-neg">−</div><div class="ex-text">He <b>cannot</b> drive.<span class="ex-trans">U mashina hayday olmaydi.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-neg">−</div><div class="ex-text">You <b>shouldn't</b> smoke.<span class="ex-trans">Siz chekmasligingiz kerak.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text"><b>Can</b> you help me?<span class="ex-trans">Menga yordam bera olasizmi?</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text"><b>May</b> I come in?<span class="ex-trans">Kirsa bo'ladimi?</span></div></div>
+      </div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 3</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Write 2 sentences each for <b>can, must, should, may</b> (8 total).</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Write 3 advice sentences for a friend using <b>should / shouldn't</b>.</div></div>
+        <div class="hw-item"><div class="hw-num">3</div><div class="hw-text">Fill in: She ___ (must/can) speak 3 languages. You ___ (should) eat more vegetables. ___ I open the window?</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 4 -->
+  <div class="day-card" id="day4">
+    <div class="day-header" onclick="toggleDay('day4')">
+      <span class="day-num">DAY 04</span>
+      <span class="day-title">Present Continuous — Right Now & Near Future</span>
+      <span class="day-topic">present continuous</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">📐 Formula</div>
+      <div class="formula">
+        <span class="f-label">Positive</span>
+        <span class="f-pos">Subject + am/is/are + V-ing + ...</span><br>
+        <span class="f-label" style="margin-top:10px">Negative</span>
+        <span class="f-neg">Subject + am not/isn't/aren't + V-ing + ...</span><br>
+        <span class="f-label" style="margin-top:10px">Question</span>
+        <span class="f-q">Am/Is/Are + Subject + V-ing + ...?</span>
+      </div>
+
+      <div class="section-label">🔑 Key Words</div>
+      <div class="keywords">
+        <span class="kw">now</span><span class="kw">right now</span><span class="kw">at the moment</span>
+        <span class="kw">currently</span><span class="kw">today</span><span class="kw">look!</span><span class="kw">listen!</span>
+      </div>
+
+      <div class="section-label">💬 Examples</div>
+      <div class="examples">
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">I <b>am studying</b> English now.<span class="ex-trans">Hozir ingliz tilini o'qiyapman.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">She <b>is talking</b> on the phone.<span class="ex-trans">U telefonda gaplashyapti.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-neg">−</div><div class="ex-text">They <b>aren't sleeping</b> now.<span class="ex-trans">Ular hozir uxlamayapti.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text"><b>Are</b> you <b>coming</b> to the party?<span class="ex-trans">Ziyofatga kelasizmi?</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text">What <b>is</b> he <b>doing</b>?<span class="ex-trans">U nima qilyapti?</span></div></div>
+      </div>
+
+      <div class="section-label">💡 Key Tip</div>
+      <div class="tip-box"><strong>Stative verbs</strong> are NOT used in continuous! Never say: ❌ "I am knowing" / "She is wanting". Use simple instead: ✅ "I know" / "She wants". Stative verbs: know, want, need, love, hate, believe, understand, have (possession).</div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 4</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Write 5 sentences about what is happening right now around you.</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Compare: Write one sentence in Present Simple and one in Present Continuous about the same person.</div></div>
+        <div class="hw-item"><div class="hw-num">3</div><div class="hw-text">Write 3 questions with <b>Is/Are + V-ing</b> to ask someone about their current activity.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 5 -->
+  <div class="day-card" id="day5">
+    <div class="day-header" onclick="toggleDay('day5')">
+      <span class="day-num">DAY 05</span>
+      <span class="day-title">Have / Has — Possession & Relationships</span>
+      <span class="day-topic">have / has</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">📐 Formula</div>
+      <div class="formula">
+        <span class="f-label">Positive</span>
+        <span class="f-pos">I/You/We/They → have &nbsp;|&nbsp; He/She/It → has</span><br>
+        <span class="f-label" style="margin-top:10px">Negative</span>
+        <span class="f-neg">don't have / doesn't have</span><br>
+        <span class="f-label" style="margin-top:10px">Question</span>
+        <span class="f-q">Do you have...? / Does she have...?</span>
+      </div>
+
+      <div class="section-label">💬 Examples</div>
+      <div class="examples">
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">I <b>have</b> two brothers.<span class="ex-trans">Mening ikki akam bor.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">She <b>has</b> a red car.<span class="ex-trans">Uning qizil mashinasi bor.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-neg">−</div><div class="ex-text">He <b>doesn't have</b> time.<span class="ex-trans">Uning vaqti yo'q.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text"><b>Do</b> you <b>have</b> a pen?<span class="ex-trans">Sizda qalam bormi?</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text"><b>Does</b> she <b>have</b> a sister?<span class="ex-trans">Uning singlisi bormi?</span></div></div>
+      </div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 5</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Write 5 sentences about things you have (family, objects, pets).</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Write 3 sentences about what someone else (he/she) has.</div></div>
+        <div class="hw-item"><div class="hw-num">3</div><div class="hw-text">Write 3 questions asking about possession.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 6 -->
+  <div class="day-card" id="day6">
+    <div class="day-header" onclick="toggleDay('day6')">
+      <span class="day-num">DAY 06</span>
+      <span class="day-title">Have to / Has to — Obligation & Necessity</span>
+      <span class="day-topic">have to / has to</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">📐 Formula</div>
+      <div class="formula">
+        <span class="f-label">Positive</span>
+        <span class="f-pos">I/You/We/They + have to + V1<br>He/She/It + has to + V1</span><br>
+        <span class="f-label" style="margin-top:10px">Negative</span>
+        <span class="f-neg">don't have to / doesn't have to + V1 (= not necessary)</span><br>
+        <span class="f-label" style="margin-top:10px">Question</span>
+        <span class="f-q">Do I have to...? / Does she have to...?</span>
+      </div>
+
+      <div class="section-label">💬 Examples</div>
+      <div class="examples">
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">I <b>have to</b> wake up early.<span class="ex-trans">Men erta turgunim kerak.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">She <b>has to</b> work on weekends.<span class="ex-trans">U dam olish kunlari ishlashi kerak.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-neg">−</div><div class="ex-text">You <b>don't have to</b> come. (optional!)<span class="ex-trans">Kelishingiz shart emas.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text"><b>Do</b> you <b>have to</b> wear a uniform?<span class="ex-trans">Forma kiyishingiz shart?</span></div></div>
+      </div>
+
+      <div class="section-label">💡 Key Tip</div>
+      <div class="tip-box"><strong>must vs. have to:</strong> Both mean obligation, but <strong>must</strong> is often a personal rule / internal obligation; <strong>have to</strong> is an external rule. "I must study" (I want to) vs. "I have to study" (the teacher says so).</div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 6</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">List 5 things you <b>have to</b> do every day (work, school, etc.).</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">List 3 things you <b>don't have to</b> do.</div></div>
+        <div class="hw-item"><div class="hw-num">3</div><div class="hw-text">Write 2 sentences using <b>must</b> and 2 using <b>have to</b> — what's the difference?</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 7 REVIEW -->
+  <div class="review-card">
+    <span class="review-icon">🔁</span>
+    <div class="review-title">Day 7 — Week 1 Review Day</div>
+    <div class="review-desc">Go back through Days 1–6. Rewrite all your homework from memory without looking at the formulas. Test yourself: cover the formula box and try to write it out. Check what you got wrong and practice again.</div>
+  </div>
+</div>
+
+<!-- ==================== WEEK 2 ==================== -->
+<div id="w2" class="week-section">
+  <div class="week-header">
+    <div class="week-eyebrow">Week 02</div>
+    <div class="week-title">Past Tenses</div>
+    <div class="week-desc">Past Simple · Past Continuous · Introduction to Perfect</div>
+  </div>
+
+  <div class="progress-wrap">
+    <span class="prog-label">Week 2</span>
+    <div class="prog-bar-wrap"><div class="prog-bar" style="width:50%"></div></div>
+    <span class="prog-pct">Days 8–14</span>
+  </div>
+
+  <!-- DAY 8 -->
+  <div class="day-card" id="day8">
+    <div class="day-header" onclick="toggleDay('day8')">
+      <span class="day-num">DAY 08</span>
+      <span class="day-title">Past Simple — Completed Actions</span>
+      <span class="day-topic">past simple</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">📐 Formula</div>
+      <div class="formula">
+        <span class="f-label">Positive</span>
+        <span class="f-pos">Subject + V2 (past form) + ...</span><br>
+        <span class="f-label" style="margin-top:10px">Negative</span>
+        <span class="f-neg">Subject + didn't + V1 + ...</span><br>
+        <span class="f-label" style="margin-top:10px">Question</span>
+        <span class="f-q">Did + Subject + V1 + ...?</span>
+      </div>
+
+      <div class="section-label">🔑 Key Words</div>
+      <div class="keywords">
+        <span class="kw">yesterday</span><span class="kw">last night</span><span class="kw">last week</span>
+        <span class="kw">ago</span><span class="kw">in 2020</span><span class="kw">when I was...</span>
+      </div>
+
+      <div class="section-label">💬 Examples</div>
+      <div class="examples">
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">I <b>watched</b> a movie yesterday.<span class="ex-trans">Men kecha film ko'rdim.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">She <b>went</b> to school. (irregular!)<span class="ex-trans">U maktabga bordi.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-neg">−</div><div class="ex-text">He <b>didn't call</b> me.<span class="ex-trans">U menga qo'ng'iroq qilmadi.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text"><b>Did</b> you sleep well?<span class="ex-trans">Yaxshi uxladingizmi?</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text">Where <b>did</b> she <b>go</b>?<span class="ex-trans">U qayerga ketdi?</span></div></div>
+      </div>
+
+      <div class="section-label">💡 Key Tip</div>
+      <div class="tip-box"><strong>Regular vs Irregular:</strong> Regular verbs: add -ed (work → worked, play → played). Irregular verbs have their own past forms — you must memorize them: go → went, eat → ate, see → saw, buy → bought. Learn 5 irregular verbs per day!</div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 8</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Write a paragraph (6–8 sentences) about what you did yesterday.</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Memorize 10 irregular verbs with their past forms.</div></div>
+        <div class="hw-item"><div class="hw-num">3</div><div class="hw-text">Write 4 questions with <b>Did</b> to ask a friend about last weekend.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 9 -->
+  <div class="day-card" id="day9">
+    <div class="day-header" onclick="toggleDay('day9')">
+      <span class="day-num">DAY 09</span>
+      <span class="day-title">Past Simple — Irregular Verbs Deep Dive</span>
+      <span class="day-topic">past simple</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">📚 Top 20 Irregular Verbs</div>
+      <div class="formula">
+        <span class="f-key">be → was/were &nbsp; have → had &nbsp; do → did</span><br>
+        <span class="f-key">go → went &nbsp; get → got &nbsp; come → came</span><br>
+        <span class="f-key">say → said &nbsp; see → saw &nbsp; know → knew</span><br>
+        <span class="f-key">take → took &nbsp; give → gave &nbsp; make → made</span><br>
+        <span class="f-key">think → thought &nbsp; buy → bought &nbsp; find → found</span><br>
+        <span class="f-key">write → wrote &nbsp; eat → ate &nbsp; drink → drank</span><br>
+        <span class="f-key">sleep → slept &nbsp; speak → spoke</span>
+      </div>
+
+      <div class="section-label">💬 Practice Sentences</div>
+      <div class="examples">
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">I <b>ate</b> pizza for dinner.<span class="ex-trans">Men kechki ovqatga pizza yedim.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">She <b>wrote</b> a letter.<span class="ex-trans">U maktub yozdi.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">They <b>spoke</b> English well.<span class="ex-trans">Ular ingliz tilida yaxshi gaplashishdi.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-neg">−</div><div class="ex-text">We <b>didn't find</b> the keys.<span class="ex-trans">Biz kalitlarni topa olmadik.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text">What <b>did</b> you <b>buy</b>?<span class="ex-trans">Siz nima sotib oldingiz?</span></div></div>
+      </div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 9</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Write a short story (8–10 sentences) about a day in your past using at least 8 irregular verbs.</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Cover the right column of the irregular verb list — test yourself!</div></div>
+        <div class="hw-item"><div class="hw-num">3</div><div class="hw-text">Add 5 more irregular verbs to your personal list.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 10 -->
+  <div class="day-card" id="day10">
+    <div class="day-header" onclick="toggleDay('day10')">
+      <span class="day-num">DAY 10</span>
+      <span class="day-title">Past Continuous — Actions In Progress</span>
+      <span class="day-topic">past continuous</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">📐 Formula</div>
+      <div class="formula">
+        <span class="f-label">Positive</span>
+        <span class="f-pos">Subject + was/were + V-ing + ...</span><br>
+        <span class="f-label" style="margin-top:10px">Negative</span>
+        <span class="f-neg">Subject + wasn't/weren't + V-ing + ...</span><br>
+        <span class="f-label" style="margin-top:10px">Question</span>
+        <span class="f-q">Was/Were + Subject + V-ing + ...?</span>
+      </div>
+
+      <div class="section-label">🔑 Key Pattern</div>
+      <div class="tip-box"><strong>Classic combo:</strong> Past Continuous + Past Simple<br>
+      "I <strong>was cooking</strong> when she <strong>arrived</strong>."<br>
+      → Was cooking = long background action &nbsp;|&nbsp; arrived = short interrupting action</div>
+
+      <div class="section-label">💬 Examples</div>
+      <div class="examples">
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">I <b>was sleeping</b> at 10 PM.<span class="ex-trans">Men soat 22:00 da uxlayotgan edim.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">They <b>were playing</b> football when it rained.<span class="ex-trans">Yomg'ir yoqqanda ular futbol o'ynayotgan edi.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-neg">−</div><div class="ex-text">She <b>wasn't listening</b> to me.<span class="ex-trans">U meni eshitmayotgan edi.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text"><b>Were</b> you <b>working</b> last night?<span class="ex-trans">Kecha kechqurun ishlayotgan edingizmi?</span></div></div>
+      </div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 10</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Write 5 sentences about what different people were doing last night at 8 PM.</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Write 3 sentences combining Past Continuous + Past Simple using <b>when</b> or <b>while</b>.</div></div>
+        <div class="hw-item"><div class="hw-num">3</div><div class="hw-text">Write 3 questions using <b>Was/Were + V-ing</b>.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 11 -->
+  <div class="day-card" id="day11">
+    <div class="day-header" onclick="toggleDay('day11')">
+      <span class="day-num">DAY 11</span>
+      <span class="day-title">Past Simple vs Past Continuous — Comparison</span>
+      <span class="day-topic">comparison</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">🔄 Key Difference</div>
+      <div class="formula">
+        <span class="f-key">Past Simple</span> = action is finished, we care about the event<br>
+        → "She <span class="f-pos">called</span> me at 9 PM."<br><br>
+        <span class="f-key">Past Continuous</span> = action was in progress at that moment<br>
+        → "She <span class="f-pos">was studying</span> at 9 PM."
+      </div>
+
+      <div class="section-label">💬 Contrast Examples</div>
+      <div class="examples">
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">I <b>read</b> a book last night. (I finished it)<span class="ex-trans">Kecha kechqurun kitob o'qidim.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">I <b>was reading</b> a book when you called. (in progress)<span class="ex-trans">Siz qo'ng'iroq qilganingizda kitob o'qiyotgan edim.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">While she <b>was cooking</b>, he <b>watched</b> TV.<span class="ex-trans">U ovqat pishirayotganda, u televizor ko'rdi.</span></div></div>
+      </div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 11</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Choose the correct form for 5 pairs: was doing / did. Explain why.</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Write a short story using BOTH tenses at least 3 times each.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 12-13: practice -->
+  <div class="day-card" id="day12">
+    <div class="day-header" onclick="toggleDay('day12')">
+      <span class="day-num">DAY 12</span>
+      <span class="day-title">Practice Day — Writing About Your Past</span>
+      <span class="day-topic">practice</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">✍️ Writing Tasks</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Full Practice — Day 12</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Write about your childhood: 10 sentences using Past Simple (what you did, where you lived, what you liked).</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Describe a memorable event from your life (vacation, celebration, etc.) — mix Past Simple + Past Continuous.</div></div>
+        <div class="hw-item"><div class="hw-num">3</div><div class="hw-text">Tell a story: "The last time something unexpected happened to me..." — at least 8 sentences.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 13 -->
+  <div class="day-card" id="day13">
+    <div class="day-header" onclick="toggleDay('day13')">
+      <span class="day-num">DAY 13</span>
+      <span class="day-title">Modal Verbs in the Past — could, should have, had to</span>
+      <span class="day-topic">modal verbs past</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">📐 Past Modal Formulas</div>
+      <div class="formula">
+        <span class="f-key">could</span> = past ability<br>
+        <span class="f-pos">Subject + could + V1</span><br><br>
+        <span class="f-key">should have + V3</span> = regret / criticism<br>
+        <span class="f-pos">Subject + should have + past participle</span><br><br>
+        <span class="f-key">had to</span> = past obligation<br>
+        <span class="f-pos">Subject + had to + V1</span>
+      </div>
+
+      <div class="section-label">💬 Examples</div>
+      <div class="examples">
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">I <b>could</b> swim when I was 5.<span class="ex-trans">Men 5 yoshimda suza olardim.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-neg">−</div><div class="ex-text">She <b>couldn't</b> speak English.<span class="ex-trans">U inglizcha gapira olmasdi.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">You <b>should have studied</b> harder. (regret)<span class="ex-trans">Ko'proq o'qigan bo'larding.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">We <b>had to</b> wait for an hour.<span class="ex-trans">Biz bir soat kutishimiz kerak edi.</span></div></div>
+      </div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 13</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Write 4 things you could do as a child (past ability).</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Write 3 regrets using "should have + V3".</div></div>
+        <div class="hw-item"><div class="hw-num">3</div><div class="hw-text">Write 3 past obligations using "had to".</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 14 REVIEW -->
+  <div class="review-card">
+    <span class="review-icon">🔁</span>
+    <div class="review-title">Day 14 — Week 2 Review Day</div>
+    <div class="review-desc">Review all past tense formulas: Past Simple, Past Continuous, Modal Verbs (past). Write 2 paragraphs about last week — one using Past Simple and one using Past Continuous. Self-check all homework from Days 8–13.</div>
+  </div>
+</div>
+
+<!-- ==================== WEEK 3 ==================== -->
+<div id="w3" class="week-section">
+  <div class="week-header">
+    <div class="week-eyebrow">Week 03</div>
+    <div class="week-title">Perfect Tenses</div>
+    <div class="week-desc">Present Perfect · Past Perfect Simple · Past Perfect Continuous</div>
+  </div>
+
+  <div class="progress-wrap">
+    <span class="prog-label">Week 3</span>
+    <div class="prog-bar-wrap"><div class="prog-bar" style="width:75%"></div></div>
+    <span class="prog-pct">Days 15–21</span>
+  </div>
+
+  <!-- DAY 15 -->
+  <div class="day-card" id="day15">
+    <div class="day-header" onclick="toggleDay('day15')">
+      <span class="day-num">DAY 15</span>
+      <span class="day-title">Present Perfect Simple — Experience & Result</span>
+      <span class="day-topic">present perfect</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">📐 Formula</div>
+      <div class="formula">
+        <span class="f-label">Positive</span>
+        <span class="f-pos">Subject + have/has + V3 (past participle) + ...</span><br>
+        <span class="f-label" style="margin-top:10px">Negative</span>
+        <span class="f-neg">Subject + haven't/hasn't + V3 + ...</span><br>
+        <span class="f-label" style="margin-top:10px">Question</span>
+        <span class="f-q">Have/Has + Subject + V3 + ...?</span>
+      </div>
+
+      <div class="section-label">🔑 Key Words</div>
+      <div class="keywords">
+        <span class="kw">ever</span><span class="kw">never</span><span class="kw">just</span>
+        <span class="kw">already</span><span class="kw">yet</span><span class="kw">recently</span>
+        <span class="kw">before</span><span class="kw">so far</span>
+      </div>
+
+      <div class="section-label">💬 Examples</div>
+      <div class="examples">
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">I <b>have visited</b> Paris.<span class="ex-trans">Men Parijga borgam (hayotimda).</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">She <b>has just</b> finished her homework.<span class="ex-trans">U endi uyini tugatdi.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-neg">−</div><div class="ex-text">I <b>haven't seen</b> that movie yet.<span class="ex-trans">Men hali o'sha filmni ko'rmaganman.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text"><b>Have</b> you ever <b>eaten</b> sushi?<span class="ex-trans">Hech sushi yeganmisiz?</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text"><b>Has</b> he <b>called</b> yet?<span class="ex-trans">U hali qo'ng'iroq qildimi?</span></div></div>
+      </div>
+
+      <div class="section-label">💡 Key Tip</div>
+      <div class="tip-box"><strong>Present Perfect ≠ Past Simple:</strong> Use Present Perfect when the TIME is not mentioned or not important. Use Past Simple when you say <em>when</em> it happened.<br>✅ "I have eaten sushi." (experience, ever in life)<br>✅ "I ate sushi <strong>yesterday</strong>." (specific time = Past Simple)</div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 15</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Write 5 life experiences using "I have / I haven't..."</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Write 3 sentences with <b>just</b>, <b>already</b>, and <b>yet</b>.</div></div>
+        <div class="hw-item"><div class="hw-num">3</div><div class="hw-text">Write 5 questions to ask a friend about their life experiences using "Have you ever...?"</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 16 -->
+  <div class="day-card" id="day16">
+    <div class="day-header" onclick="toggleDay('day16')">
+      <span class="day-num">DAY 16</span>
+      <span class="day-title">Present Perfect — for, since & How Long</span>
+      <span class="day-topic">present perfect</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">📐 for vs. since</div>
+      <div class="formula">
+        <span class="f-key">for</span> = duration (length of time)<br>
+        <span class="f-pos">I have lived here for 5 years.</span><br><br>
+        <span class="f-key">since</span> = starting point<br>
+        <span class="f-pos">I have lived here since 2019.</span>
+      </div>
+
+      <div class="section-label">💬 Examples</div>
+      <div class="examples">
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">I <b>have known</b> him <b>for</b> 10 years.<span class="ex-trans">Men uni 10 yildan beri bilaman.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">She <b>has worked</b> here <b>since</b> January.<span class="ex-trans">U yanvardan beri bu yerda ishlaydi.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text">How long <b>have</b> you <b>studied</b> English?<span class="ex-trans">Qancha vaqtdan beri ingliz tili o'qiyapsiz?</span></div></div>
+      </div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 16</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Write 6 sentences using "for" and "since" about things in your life (living somewhere, knowing someone, doing a hobby).</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Ask 3 "How long have you...?" questions.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 17 -->
+  <div class="day-card" id="day17">
+    <div class="day-header" onclick="toggleDay('day17')">
+      <span class="day-num">DAY 17</span>
+      <span class="day-title">Past Perfect Simple — The Earlier Past</span>
+      <span class="day-topic">past perfect simple</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">📐 Formula</div>
+      <div class="formula">
+        <span class="f-label">Positive</span>
+        <span class="f-pos">Subject + had + V3 (past participle) + ...</span><br>
+        <span class="f-label" style="margin-top:10px">Negative</span>
+        <span class="f-neg">Subject + hadn't + V3 + ...</span><br>
+        <span class="f-label" style="margin-top:10px">Question</span>
+        <span class="f-q">Had + Subject + V3 + ...?</span>
+      </div>
+
+      <div class="section-label">🔑 When to use it</div>
+      <div class="tip-box">Use Past Perfect for an action that happened <strong>before</strong> another past action. It's "the past before the past."<br><br>
+      "When I arrived, she <strong>had already left</strong>."<br>→ First she left → then I arrived. Both are past, but leaving happened first.</div>
+
+      <div class="section-label">💬 Examples</div>
+      <div class="examples">
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">I <b>had eaten</b> before he arrived.<span class="ex-trans">U kelmasdan oldin ovqatlanib bo'lgan edim.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">She <b>had never seen</b> snow before that day.<span class="ex-trans">U o'sha kunga qadar hech qachon qor ko'rmagandi.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-neg">−</div><div class="ex-text">They <b>hadn't finished</b> when we got there.<span class="ex-trans">Biz borgunimizcha ular tugatmagandi.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text"><b>Had</b> you <b>met</b> him before the party?<span class="ex-trans">Ziyofatdan oldin u bilan uchrashgan edingizmi?</span></div></div>
+      </div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 17</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Write 5 sentences using Past Perfect + Past Simple (show two past events).</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Write 3 sentences about something you had done before a specific event in your life.</div></div>
+        <div class="hw-item"><div class="hw-num">3</div><div class="hw-text">Fill in: By the time he called, I ___ (already/leave). She ___ (not/eat) when we arrived.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 18 -->
+  <div class="day-card" id="day18">
+    <div class="day-header" onclick="toggleDay('day18')">
+      <span class="day-num">DAY 18</span>
+      <span class="day-title">Past Perfect Continuous — Duration Before a Past Moment</span>
+      <span class="day-topic">past perfect continuous</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">📐 Formula</div>
+      <div class="formula">
+        <span class="f-label">Positive</span>
+        <span class="f-pos">Subject + had been + V-ing + ...</span><br>
+        <span class="f-label" style="margin-top:10px">Negative</span>
+        <span class="f-neg">Subject + hadn't been + V-ing + ...</span><br>
+        <span class="f-label" style="margin-top:10px">Question</span>
+        <span class="f-q">Had + Subject + been + V-ing + ...?</span>
+      </div>
+
+      <div class="section-label">💬 Examples</div>
+      <div class="examples">
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">I <b>had been waiting</b> for 2 hours when she arrived.<span class="ex-trans">U kelganida men 2 soat kutgan edim.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">He <b>had been working</b> all night, so he was tired.<span class="ex-trans">U butun kecha ishlagan, shuning uchun charchagan edi.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text"><b>Had</b> they <b>been studying</b> long?<span class="ex-trans">Ular uzoq o'qishganmidi?</span></div></div>
+      </div>
+
+      <div class="section-label">💡 Key Tip</div>
+      <div class="tip-box"><strong>Past Perfect Continuous</strong> emphasizes the <em>duration</em> of an action that continued up to a past moment. It often answers "how long?" and explains a past state or feeling.<br>"He was tired because he <strong>had been running</strong> for an hour."</div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 18</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Write 4 sentences using "had been + V-ing" to explain why someone was tired, hungry, wet, etc.</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Combine: She was exhausted. She had been working for 12 hours. → Write it as one sentence.</div></div>
+        <div class="hw-item"><div class="hw-num">3</div><div class="hw-text">Write a mini-story (5 sentences) using Past Perfect Simple and Past Perfect Continuous.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 19-20: practice + compare -->
+  <div class="day-card" id="day19">
+    <div class="day-header" onclick="toggleDay('day19')">
+      <span class="day-num">DAY 19</span>
+      <span class="day-title">Perfect Tenses — Big Comparison</span>
+      <span class="day-topic">comparison</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">🔄 All Perfect Tenses at a Glance</div>
+      <div class="formula">
+        <span class="f-key">Present Perfect:</span> <span class="f-pos">have/has + V3</span><br>
+        → Connection to NOW, experience, recent result<br><br>
+        <span class="f-key">Past Perfect:</span> <span class="f-pos">had + V3</span><br>
+        → Action completed BEFORE another past action<br><br>
+        <span class="f-key">Past Perfect Continuous:</span> <span class="f-pos">had been + V-ing</span><br>
+        → Action IN PROGRESS for a duration, before a past moment
+      </div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 19</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Write a story of 12 sentences using all three perfect tenses. Underline which tense you used.</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Correct these errors: "I have went there yesterday." / "She had been wait for hours."</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 20 -->
+  <div class="day-card" id="day20">
+    <div class="day-header" onclick="toggleDay('day20')">
+      <span class="day-num">DAY 20</span>
+      <span class="day-title">Vocabulary & Verb Forms Mastery Day</span>
+      <span class="day-topic">v1 / v2 / v3</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">📚 Key Irregular Verbs: V1 → V2 → V3</div>
+      <div class="formula" style="line-height:2">
+        <span class="f-key">go → went → gone</span><br>
+        <span class="f-key">eat → ate → eaten</span><br>
+        <span class="f-key">write → wrote → written</span><br>
+        <span class="f-key">see → saw → seen</span><br>
+        <span class="f-key">speak → spoke → spoken</span><br>
+        <span class="f-key">take → took → taken</span><br>
+        <span class="f-key">give → gave → given</span><br>
+        <span class="f-key">know → knew → known</span><br>
+        <span class="f-key">begin → began → begun</span><br>
+        <span class="f-key">break → broke → broken</span>
+      </div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 20</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Learn the V1/V2/V3 forms of 20 irregular verbs. Write them 3 times each.</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Use 10 of them in sentences using any Perfect tense.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 21 REVIEW -->
+  <div class="review-card">
+    <span class="review-icon">🔁</span>
+    <div class="review-title">Day 21 — Week 3 Review Day</div>
+    <div class="review-desc">This is the halfway review for perfect tenses. Without looking, write: (1) all 3 perfect tense formulas, (2) 5 sentences for each, (3) a paragraph that uses all three in context. Then check your work against Days 15–20.</div>
+  </div>
+</div>
+
+<!-- ==================== WEEK 4 ==================== -->
+<div id="w4" class="week-section">
+  <div class="week-header">
+    <div class="week-eyebrow">Week 04</div>
+    <div class="week-title">Future Tenses & Grand Finale</div>
+    <div class="week-desc">Future Simple · Future Continuous · Full 30-Day Review</div>
+  </div>
+
+  <div class="progress-wrap">
+    <span class="prog-label">Week 4</span>
+    <div class="prog-bar-wrap"><div class="prog-bar" style="width:100%"></div></div>
+    <span class="prog-pct">Days 22–30</span>
+  </div>
+
+  <!-- DAY 22 -->
+  <div class="day-card" id="day22">
+    <div class="day-header" onclick="toggleDay('day22')">
+      <span class="day-num">DAY 22</span>
+      <span class="day-title">Future Simple — will & going to</span>
+      <span class="day-topic">future simple</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">📐 Formula</div>
+      <div class="formula">
+        <span class="f-label">will — spontaneous decisions / predictions</span>
+        <span class="f-pos">Subject + will + V1 + ...</span><br>
+        <span class="f-neg" style="display:block; margin-top:4px">Subject + won't + V1 + ...</span><br>
+        <span class="f-q" style="display:block; margin-top:4px">Will + Subject + V1 + ...?</span><br><br>
+        <span class="f-label">going to — plans & intentions</span>
+        <span class="f-pos">Subject + am/is/are going to + V1 + ...</span>
+      </div>
+
+      <div class="section-label">🔑 will vs. going to</div>
+      <div class="tip-box">
+        <strong>will</strong>: spontaneous decision at the moment of speaking, offers, promises, predictions without evidence.<br>
+        "I'll help you!" (I decided just now)<br><br>
+        <strong>going to</strong>: a plan decided before, something you can see is about to happen.<br>
+        "I'm going to study tonight." (I already planned this)
+      </div>
+
+      <div class="section-label">💬 Examples</div>
+      <div class="examples">
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">I <b>will call</b> you tomorrow.<span class="ex-trans">Men ertaga sizga qo'ng'iroq qilaman.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">She <b>is going to</b> start a new job.<span class="ex-trans">U yangi ish boshlaydi (rejasi bor).</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-neg">−</div><div class="ex-text">I <b>won't</b> be late, I promise!<span class="ex-trans">Kechikmayman, va'da beraман!</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text"><b>Will</b> you help me?<span class="ex-trans">Menga yordam berasizmi?</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text"><b>Are</b> you <b>going to</b> travel this summer?<span class="ex-trans">Bu yoz sayohat qilmoqchimisiz?</span></div></div>
+      </div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 22</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Write 5 plans you have for the near future using "going to".</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Write 4 predictions about the world using "will".</div></div>
+        <div class="hw-item"><div class="hw-num">3</div><div class="hw-text">Write 3 promises or offers using "will".</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 23 -->
+  <div class="day-card" id="day23">
+    <div class="day-header" onclick="toggleDay('day23')">
+      <span class="day-num">DAY 23</span>
+      <span class="day-title">Future Continuous — Actions In Progress in the Future</span>
+      <span class="day-topic">future continuous</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">📐 Formula</div>
+      <div class="formula">
+        <span class="f-label">Positive</span>
+        <span class="f-pos">Subject + will be + V-ing + ...</span><br>
+        <span class="f-label" style="margin-top:10px">Negative</span>
+        <span class="f-neg">Subject + won't be + V-ing + ...</span><br>
+        <span class="f-label" style="margin-top:10px">Question</span>
+        <span class="f-q">Will + Subject + be + V-ing + ...?</span>
+      </div>
+
+      <div class="section-label">🔑 When to use it</div>
+      <div class="tip-box">Future Continuous shows an action that <strong>will be in progress</strong> at a specific moment in the future.<br><br>
+      "At 8 PM tomorrow, I <strong>will be studying</strong>."<br>→ At that moment, I will be in the middle of studying.</div>
+
+      <div class="section-label">💬 Examples</div>
+      <div class="examples">
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">This time tomorrow, I <b>will be flying</b> to London.<span class="ex-trans">Ertaga bu vaqtda Londonga uchib boraman.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-pos">+</div><div class="ex-text">At 9 AM, she <b>will be giving</b> a presentation.<span class="ex-trans">Soat 9 da u taqdimot qilyotgan bo'ladi.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-neg">−</div><div class="ex-text">Don't call at noon — I <b>won't be working</b>.<span class="ex-trans">Peshin vaqtda qo'ng'iroq qilmang — ishlamayotgan bo'laman.</span></div></div>
+        <div class="example-item"><div class="ex-icon ex-q">?</div><div class="ex-text"><b>Will</b> you <b>be using</b> the car tonight?<span class="ex-trans">Bugun kechqurun mashinadan foydalanasizmi?</span></div></div>
+      </div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 23</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Write 5 sentences about what you will be doing at specific times tomorrow.</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Write 3 polite questions using "Will you be + V-ing?" (e.g., asking if someone is using something).</div></div>
+        <div class="hw-item"><div class="hw-num">3</div><div class="hw-text">Compare: Write the same sentence in Future Simple and Future Continuous. What changes?</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 24 -->
+  <div class="day-card" id="day24">
+    <div class="day-header" onclick="toggleDay('day24')">
+      <span class="day-num">DAY 24</span>
+      <span class="day-title">Future Tenses — All 3 Ways to Talk About Future</span>
+      <span class="day-topic">future comparison</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">🔄 Three Ways to Express Future</div>
+      <div class="formula">
+        <span class="f-key">will + V1</span> → instant decision, prediction, promise<br>
+        "I'll have the salad." (just decided at restaurant)<br><br>
+        <span class="f-key">going to + V1</span> → planned intention, evidence-based prediction<br>
+        "Look at those clouds — it's going to rain!"<br><br>
+        <span class="f-key">will be + V-ing</span> → action in progress at future moment, polite inquiry<br>
+        "I'll be working at 5 PM."<br><br>
+        <span class="f-key">Present Continuous</span> → fixed arrangements (tickets bought, meetings booked)<br>
+        "I'm flying to Paris on Friday." (booked!)
+      </div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 24</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Plan your next week! Write 8 sentences using all the future forms.</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Look at a newspaper or online article — find 3 future predictions. Rewrite them using "will".</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 25-29: MEGA REVIEW -->
+  <div class="day-card" id="day25">
+    <div class="day-header" onclick="toggleDay('day25')">
+      <span class="day-num">DAY 25</span>
+      <span class="day-title">Mega Review — All Tenses Formula Sheet</span>
+      <span class="day-topic">all tenses</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">📐 Complete Formula Reference</div>
+      <div class="formula" style="line-height:2.2; font-size:0.82rem">
+        <span class="f-key">To Be (present):</span> <span class="f-pos">am / is / are</span><br>
+        <span class="f-key">Present Simple:</span> <span class="f-pos">V1 / V1+s</span> | <span class="f-neg">don't/doesn't + V1</span> | <span class="f-q">Do/Does + V1?</span><br>
+        <span class="f-key">Present Continuous:</span> <span class="f-pos">am/is/are + V-ing</span><br>
+        <span class="f-key">Modal Verbs:</span> <span class="f-pos">can/must/should/may + V1</span><br>
+        <span class="f-key">Have/Has:</span> <span class="f-pos">have (I/you/we/they) | has (he/she/it)</span><br>
+        <span class="f-key">Have to/Has to:</span> <span class="f-pos">have to / has to + V1</span><br>
+        <span class="f-key">Past Simple:</span> <span class="f-pos">V2</span> | <span class="f-neg">didn't + V1</span> | <span class="f-q">Did + V1?</span><br>
+        <span class="f-key">Past Continuous:</span> <span class="f-pos">was/were + V-ing</span><br>
+        <span class="f-key">Present Perfect:</span> <span class="f-pos">have/has + V3</span><br>
+        <span class="f-key">Past Perfect:</span> <span class="f-pos">had + V3</span><br>
+        <span class="f-key">Past Perfect Continuous:</span> <span class="f-pos">had been + V-ing</span><br>
+        <span class="f-key">Future Simple:</span> <span class="f-pos">will + V1 / going to + V1</span><br>
+        <span class="f-key">Future Continuous:</span> <span class="f-pos">will be + V-ing</span>
+      </div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 25</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Cover this page and write all formulas from memory. Check what you forgot.</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">For each tense, write 1 example sentence from your own life.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 26 -->
+  <div class="day-card" id="day26">
+    <div class="day-header" onclick="toggleDay('day26')">
+      <span class="day-num">DAY 26</span>
+      <span class="day-title">Tense Timeline — Putting It All Together</span>
+      <span class="day-topic">all tenses</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">⏰ The Tense Timeline</div>
+      <div class="formula" style="font-size:0.82rem; line-height:2">
+        <span style="color:#666">PAST ←————————————————————————————→ FUTURE</span><br><br>
+        <span class="f-neg">Past Perfect</span> → <span class="f-neg">Past Simple / Past Continuous</span> → <span class="f-key">Present Simple / Continuous / Perfect</span> → <span class="f-pos">Future Simple / Continuous</span><br><br>
+        <span style="font-size:0.78rem; color:var(--muted)">had done → did / was doing → have done / do / am doing → will do / will be doing</span>
+      </div>
+
+      <div class="section-label">📝 Homework — Story Challenge</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 26</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text"><strong>The Big Story:</strong> Write a story (15–20 sentences) about a character. Include: childhood (past perfect), what happened (past simple), what they were doing (past continuous), where they are now (present), what they have achieved (present perfect), and what they plan to do (future). Label each tense you use.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAYS 27-28 Practice -->
+  <div class="day-card" id="day27">
+    <div class="day-header" onclick="toggleDay('day27')">
+      <span class="day-num">DAY 27</span>
+      <span class="day-title">Common Mistakes — Learn From Errors</span>
+      <span class="day-topic">error correction</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">❌ Top 10 Common Mistakes</div>
+      <div class="formula" style="font-size:0.85rem; line-height:2.2">
+        <span class="f-neg">❌ She doesn't works here.</span> → <span class="f-pos">✅ She doesn't work here.</span><br>
+        <span class="f-neg">❌ I am knowing him.</span> → <span class="f-pos">✅ I know him.</span><br>
+        <span class="f-neg">❌ Did she went?</span> → <span class="f-pos">✅ Did she go?</span><br>
+        <span class="f-neg">❌ I have went there yesterday.</span> → <span class="f-pos">✅ I went there yesterday.</span><br>
+        <span class="f-neg">❌ He can to swim.</span> → <span class="f-pos">✅ He can swim.</span><br>
+        <span class="f-neg">❌ She is more taller.</span> → <span class="f-pos">✅ She is taller.</span><br>
+        <span class="f-neg">❌ I have seen him yesterday.</span> → <span class="f-pos">✅ I saw him yesterday.</span><br>
+        <span class="f-neg">❌ We was happy.</span> → <span class="f-pos">✅ We were happy.</span><br>
+        <span class="f-neg">❌ She have a car.</span> → <span class="f-pos">✅ She has a car.</span><br>
+        <span class="f-neg">❌ I will to call you.</span> → <span class="f-pos">✅ I will call you.</span>
+      </div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 27</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Go back to your old homework. Find and correct 5 mistakes in your own writing.</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Write 10 correct sentences intentionally using things you used to get wrong.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 28 -->
+  <div class="day-card" id="day28">
+    <div class="day-header" onclick="toggleDay('day28')">
+      <span class="day-num">DAY 28</span>
+      <span class="day-title">Real Conversation Practice — All Tenses</span>
+      <span class="day-topic">speaking + writing</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">🗣️ Conversation Topics</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 28</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text"><strong>Interview yourself:</strong> Write Q&A for these topics (2 sentences each): Where do you live? (Present Simple) What were you doing at 6 PM yesterday? (Past Continuous) Have you ever traveled abroad? (Present Perfect) What will you do next year? (Future)</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">Write a letter to your future self (10 sentences) using all the tenses: describe your present life, your past, and your future plans.</div></div>
+        <div class="hw-item"><div class="hw-num">3</div><div class="hw-text">Say everything you write OUT LOUD. Speaking practice is key!</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 29 -->
+  <div class="day-card" id="day29">
+    <div class="day-header" onclick="toggleDay('day29')">
+      <span class="day-num">DAY 29</span>
+      <span class="day-title">Final Formula Test — Write Everything From Memory</span>
+      <span class="day-topic">final test</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="section-label">📋 Final Test Instructions</div>
+      <div class="tip-box">
+        Close all notes. On a blank piece of paper, write:<br><br>
+        1. All 13 tense/structure formulas (positive, negative, question)<br>
+        2. One example sentence for each<br>
+        3. Key signal words for each tense<br>
+        4. V1/V2/V3 of 20 irregular verbs<br><br>
+        Then check against this site. Score yourself: each formula = 1 point (max: 39 for formulas + 20 for verbs = 59 points). Aim for 50+!
+      </div>
+
+      <div class="section-label">📝 Homework</div>
+      <div class="hw-box">
+        <div class="hw-title">✏️ Homework — Day 29</div>
+        <div class="hw-item"><div class="hw-num">1</div><div class="hw-text">Take the formula test above. Write your score.</div></div>
+        <div class="hw-item"><div class="hw-num">2</div><div class="hw-text">For every formula you got wrong: write it 5 times and use it in 3 sentences.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 30 FINAL CELEBRATION -->
+  <div class="review-card" style="background: linear-gradient(135deg, rgba(52,211,153,0.1), rgba(79,142,255,0.1)); border-color: rgba(52,211,153,0.4);">
+    <span class="review-icon">🎓</span>
+    <div class="review-title" style="color: var(--accent3)">Day 30 — You Did It! Graduation Day</div>
+    <div class="review-desc" style="line-height:1.9">
+      <strong style="color:var(--text)">Final Homework:</strong><br><br>
+      ✅ Write a 20-sentence essay: "My English Journey" — use every tense at least once.<br>
+      ✅ Read it aloud. Record yourself if you can.<br>
+      ✅ List the 5 tenses you found most difficult, and practice them one more time.<br><br>
+      <strong style="color:var(--accent3)">You now know 13 grammar structures, 30+ irregular verbs, and have written hundreds of sentences. Keep practicing — use English every day!</strong>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<!-- ==================== QUIZ SECTION ==================== -->
+<div id="wq" class="week-section quiz-section">
+<div class="main" style="padding-top:32px">
+
+  <div class="week-header">
+    <div class="week-eyebrow">Practice</div>
+    <div class="week-title">🧠 Grammar Quizzes</div>
+    <div class="week-desc">Test your knowledge on each topic. Multiple choice, fill in the blank, and sentence building.</div>
+  </div>
+
+  <!-- QUIZ LIST -->
+  <div id="quiz-list">
+    <div class="quiz-grid">
+      <div class="quiz-thumb" onclick="startQuiz('tobe')">
+        <span class="qt-icon">🔵</span>
+        <div class="qt-title">To Be</div>
+        <div class="qt-meta">am / is / are · pos, neg, questions</div>
+        <span class="qt-badge">8 QUESTIONS</span>
+      </div>
+      <div class="quiz-thumb" onclick="startQuiz('presentsimple')">
+        <span class="qt-icon">🟢</span>
+        <div class="qt-title">Present Simple</div>
+        <div class="qt-meta">habits · do/does · V1+s rule</div>
+        <span class="qt-badge">8 QUESTIONS</span>
+      </div>
+      <div class="quiz-thumb" onclick="startQuiz('modal')">
+        <span class="qt-icon">🟣</span>
+        <div class="qt-title">Modal Verbs</div>
+        <div class="qt-meta">can · must · should · may</div>
+        <span class="qt-badge">8 QUESTIONS</span>
+      </div>
+      <div class="quiz-thumb" onclick="startQuiz('presentcont')">
+        <span class="qt-icon">🟡</span>
+        <div class="qt-title">Present Continuous</div>
+        <div class="qt-meta">am/is/are + V-ing · right now</div>
+        <span class="qt-badge">8 QUESTIONS</span>
+      </div>
+      <div class="quiz-thumb" onclick="startQuiz('havhas')">
+        <span class="qt-icon">🔶</span>
+        <div class="qt-title">Have / Has &amp; Have to</div>
+        <div class="qt-meta">possession · obligation</div>
+        <span class="qt-badge">8 QUESTIONS</span>
+      </div>
+      <div class="quiz-thumb" onclick="startQuiz('pastsimple')">
+        <span class="qt-icon">🔴</span>
+        <div class="qt-title">Past Simple</div>
+        <div class="qt-meta">V2 · did · irregular verbs</div>
+        <span class="qt-badge">8 QUESTIONS</span>
+      </div>
+      <div class="quiz-thumb" onclick="startQuiz('pastcont')">
+        <span class="qt-icon">🟠</span>
+        <div class="qt-title">Past Continuous</div>
+        <div class="qt-meta">was/were + V-ing · when/while</div>
+        <span class="qt-badge">8 QUESTIONS</span>
+      </div>
+      <div class="quiz-thumb" onclick="startQuiz('presentperf')">
+        <span class="qt-icon">💙</span>
+        <div class="qt-title">Present Perfect</div>
+        <div class="qt-meta">have/has + V3 · ever · yet · for/since</div>
+        <span class="qt-badge">8 QUESTIONS</span>
+      </div>
+      <div class="quiz-thumb" onclick="startQuiz('pastperf')">
+        <span class="qt-icon">💜</span>
+        <div class="qt-title">Past Perfect</div>
+        <div class="qt-meta">had + V3 · the earlier past</div>
+        <span class="qt-badge">8 QUESTIONS</span>
+      </div>
+      <div class="quiz-thumb" onclick="startQuiz('future')">
+        <span class="qt-icon">🌟</span>
+        <div class="qt-title">Future Tenses</div>
+        <div class="qt-meta">will · going to · will be + V-ing</div>
+        <span class="qt-badge">8 QUESTIONS</span>
+      </div>
+      <div class="quiz-thumb" onclick="startQuiz('mixed')" style="border-color:rgba(167,139,250,0.4); background: linear-gradient(135deg, rgba(79,142,255,0.05), rgba(167,139,250,0.05));">
+        <span class="qt-icon">🎯</span>
+        <div class="qt-title">Mixed — All Tenses</div>
+        <div class="qt-meta">Random questions from all topics</div>
+        <span class="qt-badge" style="background:rgba(167,139,250,0.15); border-color:rgba(167,139,250,0.3); color:var(--accent2)">15 QUESTIONS</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ ARENA -->
+  <div id="quiz-arena" class="quiz-arena">
+    <div class="quiz-top-bar">
+      <button class="back-btn" onclick="backToList()">← Back</button>
+      <span class="quiz-title-bar" id="arena-title">Quiz</span>
+      <span class="quiz-score-pill" id="score-pill">Score: 0</span>
+    </div>
+    <div class="q-progress-wrap">
+      <div class="q-progress-row">
+        <span id="q-counter">Question 1 of 8</span>
+        <span id="q-pct">0%</span>
+      </div>
+      <div class="q-bar"><div class="q-bar-fill" id="q-bar-fill" style="width:0%"></div></div>
+    </div>
+    <div id="question-container"></div>
+    <div class="results-screen" id="results-screen">
+      <span class="results-emoji" id="r-emoji">🎉</span>
+      <div class="results-title" id="r-title">Quiz Complete!</div>
+      <div class="star-row" id="r-stars"></div>
+      <span class="results-score" id="r-score">8/8</span>
+      <div class="results-msg" id="r-msg"></div>
+      <button class="retry-btn" onclick="retryQuiz()">🔄 Try Again</button>
+      <button class="back-list-btn" onclick="backToList()">← All Quizzes</button>
+    </div>
+  </div>
+
+</div>
+</div>
+<!-- END QUIZ SECTION -->
+
+<div class="footer">
+  English Grammar in 30 Days &nbsp;·&nbsp; Study consistently, even 30 minutes a day makes a difference.
+</div>
+
+<script>
+  /* ===== NAVIGATION ===== */
+  function showWeek(id) {
+    document.querySelectorAll('.week-section').forEach(s => s.classList.remove('visible'));
+    document.querySelectorAll('.week-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('visible');
+    event.target.classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+  function toggleDay(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+  document.getElementById('day1').classList.add('open');
+
+  /* ===== QUIZ DATA ===== */
+  const QUIZZES = {
+    tobe: {
+      title: 'To Be — am / is / are',
+      questions: [
+        { type:'mcq', q:'Choose the correct form: "She ___ a nurse."', opts:['am','is','are','be'], ans:1, exp:'He/She/It → is' },
+        { type:'fill', q:'Complete: "They ___ students."', ans:'are', exp:'You/We/They → are' },
+        { type:'mcq', q:'"I ___ not hungry." What is the correct form?', opts:["am not","isn't","aren't","is not"], ans:0, exp:'With "I" we use "am not" — never "amn\'t"' },
+        { type:'mcq', q:'Which sentence is correct?', opts:['She are happy.','He am a teacher.','We are friends.','I is tired.'], ans:2, exp:'We/You/They → are' },
+        { type:'fill', q:'Make a question: "___ you ready?"', ans:'Are', exp:'For you/we/they → Are (capital A at start)' },
+        { type:'reorder', q:'Build the question: "Is / she / a / doctor / ?"', words:['Is','she','a','doctor','?'], ans:'Is she a doctor ?' },
+        { type:'mcq', q:'"___ he your brother?" — Which word fits?', opts:['Am','Are','Is','Be'], ans:2, exp:'He/She/It → Is (question form)' },
+        { type:'fill', q:'Negative: "We ___ not from France." (contraction)', ans:"aren't", exp:"We are not → we aren't" },
+      ]
+    },
+    presentsimple: {
+      title: 'Present Simple',
+      questions: [
+        { type:'mcq', q:'"She ___ coffee every morning." Choose the correct verb.', opts:['drink','drinks','is drinking','drinked'], ans:1, exp:'He/She/It → add -s: drinks' },
+        { type:'fill', q:'"They ___ (not/live) in London." Write the correct form.', ans:"don't live", exp:"They → don't live (plural → don't)" },
+        { type:'mcq', q:'Which sentence uses Present Simple correctly?', opts:['I am always eat breakfast.','She does go usually.','He usually goes to the gym.','They are work here.'], ans:2, exp:'"He usually goes" — adverb before verb, correct -s form.' },
+        { type:'reorder', q:'Build: "Do / you / speak / English / ?"', words:['Do','you','speak','English','?'], ans:'Do you speak English ?' },
+        { type:'mcq', q:'"___ she like pizza?" — What word goes first?', opts:['Do','Does','Is','Has'], ans:1, exp:'She → Does in questions (never Do)' },
+        { type:'fill', q:'"He ___ (watch) TV every night."', ans:'watches', exp:'He/She/It: watch → watches (add -es after -ch)' },
+        { type:'mcq', q:'"Does he works here?" — What is wrong?', opts:['Does should be Do','works should be work','he should be his','Nothing is wrong'], ans:1, exp:'After Does, always use base verb V1: Does he work?' },
+        { type:'fill', q:'Key word: "She ___ (never/eat) meat." Write the full verb phrase.', ans:'never eats', exp:'Adverb of frequency goes before the verb: never eats' },
+      ]
+    },
+    modal: {
+      title: 'Modal Verbs',
+      questions: [
+        { type:'mcq', q:'"You ___ see a doctor." (strong advice)', opts:['can','may','should','will'], ans:2, exp:'"should" = advice / recommendation' },
+        { type:'fill', q:'"She ___ speak three languages." (ability)', ans:'can', exp:'"can" expresses ability' },
+        { type:'mcq', q:'Which sentence is WRONG?', opts:['He can swim.','She must to leave.','You should study.','May I come in?'], ans:1, exp:'NEVER use "to" after a modal: must leave (NOT must to leave)' },
+        { type:'reorder', q:'Build: "You / should / drink / more / water / ."', words:['You','should','drink','more','water','.'], ans:'You should drink more water .' },
+        { type:'mcq', q:'"___ I use your phone?" (polite permission)', opts:['Must','Should','Can / May','Will'], ans:2, exp:'"Can I" or "May I" — both correct for polite permission; May is more formal' },
+        { type:'fill', q:'"You ___ smoke here." (prohibition — not allowed)', ans:"can't", exp:'"cannot / can\'t" = not allowed / prohibited' },
+        { type:'mcq', q:'"She ___ be tired — she worked all night." (logical deduction)', opts:['should','must','can','may'], ans:1, exp:'"must" for strong logical deduction: I\'m sure she is tired' },
+        { type:'fill', q:'"He ___ finish this by Friday." (obligation)', ans:'must', exp:'"must" or "has to" both express obligation' },
+      ]
+    },
+    presentcont: {
+      title: 'Present Continuous',
+      questions: [
+        { type:'mcq', q:'"She ___ (read) a book right now."', opts:['reads','is reading','has read','read'], ans:1, exp:'Right now = Present Continuous: is + reading' },
+        { type:'fill', q:'"They ___ (not/sleep) at the moment."', ans:"aren't sleeping", exp:"aren't + sleeping" },
+        { type:'mcq', q:'Which sentence is WRONG?', opts:['I am studying.','He is knowing the answer.','We are waiting.','She is cooking.'], ans:1, exp:'"know" is a stative verb — never use in continuous: "He knows the answer"' },
+        { type:'reorder', q:'Build: "Are / you / watching / TV / ?"', words:['Are','you','watching','TV','?'], ans:'Are you watching TV ?' },
+        { type:'mcq', q:'"What ___ he ___ right now?"', opts:['does/do','is/doing','has/done','did/do'], ans:1, exp:'What is he doing? — Present Continuous question' },
+        { type:'fill', q:'"Look! It ___ (rain)!"', ans:'is raining', exp:'Evidence right now → Present Continuous: is raining' },
+        { type:'mcq', q:'Which word signals Present Continuous?', opts:['yesterday','usually','at the moment','always'], ans:2, exp:'"at the moment" = right now = Present Continuous' },
+        { type:'fill', q:'"I ___ (study) English this week."', ans:'am studying', exp:'Temporary situation this week → am studying' },
+      ]
+    },
+    havhas: {
+      title: 'Have / Has & Have to / Has to',
+      questions: [
+        { type:'mcq', q:'"She ___ a new car."', opts:['have','has','is having','had'], ans:1, exp:'He/She/It → has' },
+        { type:'fill', q:'"___ you got a pen?" (British English)', ans:'Have', exp:'Have you got = Do you have? (Have for you/I/we/they)' },
+        { type:'mcq', q:'"I ___ to wake up early tomorrow." (obligation)', opts:['have','has','must','am'], ans:0, exp:'I → have to (external obligation)' },
+        { type:'mcq', q:'"She ___ to wear a uniform at work."', opts:['have','has','is','does'], ans:1, exp:'She → has to (he/she/it → has to)' },
+        { type:'fill', q:'"You ___ (not/have to) come — it\'s optional."', ans:"don't have to", exp:"don't have to = not necessary (no obligation)" },
+        { type:'reorder', q:'Build: "Does / she / have / a / sister / ?"', words:['Does','she','have','a','sister','?'], ans:'Does she have a sister ?' },
+        { type:'mcq', q:'"He ___ have two brothers." (negative)', opts:["don't have","doesn't have","hasn't","isn't have"], ans:1, exp:'He → doesn\'t have (not "hasn\'t have")' },
+        { type:'mcq', q:'Difference: "You must study" vs "You have to study"', opts:['No difference at all','must = personal; have to = external rule','have to is stronger','must is for questions'], ans:1, exp:'"must" often = personal decision; "have to" = rule from outside (teacher, law, etc.)' },
+      ]
+    },
+    pastsimple: {
+      title: 'Past Simple',
+      questions: [
+        { type:'mcq', q:'"She ___ to Paris last year." (go)', opts:['goed','goes','went','has gone'], ans:2, exp:'go → went (irregular verb)' },
+        { type:'fill', q:'"They ___ (not/watch) the match."', ans:"didn't watch", exp:"didn't + base verb (V1): didn't watch" },
+        { type:'mcq', q:'Which sentence is correct?', opts:['Did she went?','Did she go?','Does she went?','She did go?'], ans:1, exp:'Did + subject + V1 (base form): Did she go?' },
+        { type:'reorder', q:'Build: "I / didn\'t / sleep / well / last / night / ."', words:["I","didn't","sleep","well","last","night","."], ans:"I didn't sleep well last night ." },
+        { type:'fill', q:'"He ___ (eat) a sandwich for lunch." (past simple)', ans:'ate', exp:'eat → ate (irregular)' },
+        { type:'mcq', q:'Signal word for Past Simple:', opts:['now','yet','tomorrow','yesterday'], ans:3, exp:'"yesterday" points to a finished past time → Past Simple' },
+        { type:'mcq', q:'"I have seen him yesterday." — What is wrong?', opts:["'have' should be 'had'","Use Past Simple when you say WHEN: I saw him yesterday","'him' should be 'he'",'Nothing is wrong'], ans:1, exp:'With specific time (yesterday) → Past Simple not Present Perfect' },
+        { type:'fill', q:'Irregular past: write → ___', ans:'wrote', exp:'write → wrote → written' },
+      ]
+    },
+    pastcont: {
+      title: 'Past Continuous',
+      questions: [
+        { type:'mcq', q:'"At 8 PM, I ___ dinner."', opts:['cooked','was cooking','am cooking','cook'], ans:1, exp:'Action in progress at a past time → was/were + V-ing' },
+        { type:'fill', q:'"They ___ (not/sleep) when I arrived."', ans:"weren't sleeping", exp:"weren't + sleeping" },
+        { type:'mcq', q:'Complete: "She ___ when the phone rang."', opts:['studied','was studying','studies','has studied'], ans:1, exp:'Long background action + short interruption: was studying (when) rang' },
+        { type:'reorder', q:'Build: "Were / you / working / last / night / ?"', words:['Were','you','working','last','night','?'], ans:'Were you working last night ?' },
+        { type:'fill', q:'"While he ___ (watch) TV, she cooked dinner."', ans:'was watching', exp:'while + was/were + V-ing shows parallel actions in the past' },
+        { type:'mcq', q:'"Were" is used with:', opts:['I / He / She / It','You / We / They','All subjects','Only they'], ans:1, exp:'was → I, he, she, it &nbsp; were → you, we, they' },
+        { type:'mcq', q:'Which shows a BACKGROUND action being interrupted?', opts:['I slept when she called.','I was sleeping when she called.','I sleep when she calls.','I had slept when she called.'], ans:1, exp:'"was sleeping" = long background; "called" = short interruption' },
+        { type:'fill', q:'"What ___ you ___ at midnight?" (past continuous question)', ans:'were / doing', exp:'Were you doing...? What were you doing?' },
+      ]
+    },
+    presentperf: {
+      title: 'Present Perfect',
+      questions: [
+        { type:'mcq', q:'"She ___ already ___ her homework." (finish)', opts:['has/finished','have/finished','did/finish','is/finishing'], ans:0, exp:'She → has + V3: has finished' },
+        { type:'fill', q:'"I ___ (never/see) that movie."', ans:"have never seen", exp:'have + never + past participle (V3)' },
+        { type:'mcq', q:'Which sentence is correct?', opts:['I have went there yesterday.','I went there yesterday.','I have went there.','I go there yesterday.'], ans:1, exp:'With "yesterday" (specific time) → Past Simple not Present Perfect' },
+        { type:'reorder', q:'Build: "Have / you / ever / eaten / sushi / ?"', words:['Have','you','ever','eaten','sushi','?'], ans:'Have you ever eaten sushi ?' },
+        { type:'fill', q:'"I have lived here ___ 2019." (starting point)', ans:'since', exp:'"since" = starting point in time; "for" = duration' },
+        { type:'mcq', q:'"___ you finished yet?" (Present Perfect question)', opts:['Did','Have','Has','Do'], ans:1, exp:'"yet" signals Present Perfect: Have you finished yet?' },
+        { type:'mcq', q:'"She has worked here ___ 5 years."', opts:['since','for','ago','when'], ans:1, exp:'"for" + duration (5 years, two hours, a long time)' },
+        { type:'fill', q:'"He has just ___ (arrive)."', ans:'arrived', exp:'just + past participle: has just arrived' },
+      ]
+    },
+    pastperf: {
+      title: 'Past Perfect',
+      questions: [
+        { type:'mcq', q:'"When I arrived, she ___ already ___." (leave)', opts:['has/left','had/left','was/left','did/leave'], ans:1, exp:'Action completed BEFORE another past action → had + V3' },
+        { type:'fill', q:'"They ___ (not/eat) before the meeting."', ans:"hadn't eaten", exp:"hadn't + past participle: hadn't eaten" },
+        { type:'mcq', q:'Past Perfect = had + ___', opts:['V1 (base)','V2 (past)','V3 (past participle)','V-ing'], ans:2, exp:'had + V3 (past participle): had gone, had seen, had eaten' },
+        { type:'reorder', q:'Build: "She / had / never / visited / London / before / ."', words:['She','had','never','visited','London','before','.'], ans:'She had never visited London before .' },
+        { type:'fill', q:'"By the time he called, I ___ (already/finish) dinner."', ans:'had already finished', exp:'had already finished — action done before calling' },
+        { type:'mcq', q:'Which shows the event that happened FIRST?', opts:['She cried when she heard the news.','She had heard the news before she cried.','She was crying when she heard.','She hears news and cried.'], ans:1, exp:'"had heard" (Past Perfect) happened before "cried" (Past Simple)' },
+        { type:'mcq', q:'"Had" is used with:', opts:['only I','only he/she/it','ALL subjects','you/we/they only'], ans:2, exp:'"had" is the same for ALL subjects — no changes!' },
+        { type:'fill', q:'Past participle of "write": write → wrote → ___', ans:'written', exp:'write → wrote → written (V3)' },
+      ]
+    },
+    future: {
+      title: 'Future Tenses',
+      questions: [
+        { type:'mcq', q:'"I ___ call you later." (spontaneous decision)', opts:['am going to','will','am calling','going to'], ans:1, exp:'"will" for spontaneous decisions made at the moment of speaking' },
+        { type:'fill', q:'"She ___ (going to/start) a new job next month." (planned)', ans:'is going to start', exp:'is going to + V1 — a plan decided before' },
+        { type:'mcq', q:'"This time tomorrow, I ___ on the plane."', opts:['will sit','am sitting','will be sitting','sit'], ans:2, exp:'Action in progress at a future time → will be + V-ing' },
+        { type:'reorder', q:'Build: "Will / you / help / me / ?"', words:['Will','you','help','me','?'], ans:'Will you help me ?' },
+        { type:'fill', q:'"It ___ (rain) — look at those clouds!" (evidence-based prediction)', ans:'is going to rain', exp:'"going to" when there is clear evidence right now' },
+        { type:'mcq', q:'"Won\'t" is the negative of:', opts:['would','will','going to','was'], ans:1, exp:'will not = won\'t' },
+        { type:'mcq', q:'"I\'m flying to Dubai on Monday." This means:', opts:['a spontaneous decision','a future prediction','a fixed arrangement (booked!)','a past habit'], ans:2, exp:'Present Continuous can express fixed future arrangements — tickets already booked' },
+        { type:'fill', q:'"At 9 AM tomorrow, she ___ (give) a presentation." (future continuous)', ans:'will be giving', exp:'will be + V-ing = action in progress at a specific future moment' },
+      ]
+    },
+    mixed: {
+      title: 'Mixed — All Tenses Challenge',
+      questions: [
+        { type:'mcq', q:'"She ___ a doctor." (to be)', opts:['am','is','are','were'], ans:1, exp:'He/She/It → is' },
+        { type:'fill', q:'"I ___ (never/try) sushi." (present perfect)', ans:'have never tried', exp:'have + never + past participle' },
+        { type:'mcq', q:'"He ___ TV when I called." (past continuous)', opts:['watched','watches','was watching','has watched'], ans:2, exp:'Background past action → was + V-ing' },
+        { type:'fill', q:'"You ___ eat vegetables. (strong advice)"', ans:'should', exp:'"should" for advice' },
+        { type:'mcq', q:'"They ___ (go) to Paris last summer." (past simple)', opts:['have gone','went','go','were going'], ans:1, exp:'Specific past time (last summer) → Past Simple: went' },
+        { type:'reorder', q:'Build a Present Continuous: "She / is / reading / a / book / ."', words:['She','is','reading','a','book','.'], ans:'She is reading a book .' },
+        { type:'fill', q:'"By the time we arrived, he ___ (already/leave)." (past perfect)', ans:'had already left', exp:'past perfect: had + V3 for the earlier past action' },
+        { type:'mcq', q:'"Does she works here?" — Correct it:', opts:["Does she work here?","Do she works here?","Is she work here?","She doesn't works here?"], ans:0, exp:'After does/do → always base verb V1: Does she work?' },
+        { type:'fill', q:'"I ___ (go) to the gym three times a week." (present simple)', ans:'go', exp:'Regular habit → Present Simple: I go' },
+        { type:'mcq', q:'Signal word "yet" goes with:', opts:['Past Simple','Present Continuous','Present Perfect','Future Simple'], ans:2, exp:'"yet" is a Present Perfect signal: Have you finished yet?' },
+        { type:'fill', q:'"She ___ (have) two cats." (possession)', ans:'has', exp:'She/He/It → has' },
+        { type:'mcq', q:'"This time tomorrow, I ___ sleeping." (future continuous)', opts:['will','will be','am','was'], ans:1, exp:'will be + V-ing = action in progress at a future moment' },
+        { type:'reorder', q:'Build: "Had / they / finished / before / you / arrived / ?"', words:['Had','they','finished','before','you','arrived','?'], ans:'Had they finished before you arrived ?' },
+        { type:'fill', q:'"I ___ (not/can) drive when I was 15." (past ability)', ans:"couldn't", exp:"couldn't = was not able to (past of can't)" },
+        { type:'mcq', q:'"I have lived here ___ ten years."', opts:['since','for','ago','when'], ans:1, exp:'"for" = duration (ten years, a month, a long time)' },
+      ]
+    }
+  };
+
+  /* ===== QUIZ ENGINE ===== */
+  let currentQuiz = null;
+  let currentQ = 0;
+  let score = 0;
+  let answered = false;
+  let reorderSelected = [];
+
+  function startQuiz(id) {
+    currentQuiz = id;
+    currentQ = 0;
+    score = 0;
+    answered = false;
+    reorderSelected = [];
+    document.getElementById('quiz-list').style.display = 'none';
+    document.getElementById('quiz-arena').classList.add('visible');
+    document.getElementById('results-screen').classList.remove('show');
+    document.getElementById('arena-title').textContent = QUIZZES[id].title;
+    document.getElementById('score-pill').textContent = 'Score: 0';
+    renderQuestion();
+  }
+
+  function backToList() {
+    document.getElementById('quiz-list').style.display = 'block';
+    document.getElementById('quiz-arena').classList.remove('visible');
+    document.getElementById('results-screen').classList.remove('show');
+    document.getElementById('question-container').innerHTML = '';
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  function retryQuiz() {
+    startQuiz(currentQuiz);
+  }
+
+  function renderQuestion() {
+    const quiz = QUIZZES[currentQuiz];
+    const qs = quiz.questions;
+    if (currentQ >= qs.length) { showResults(); return; }
+
+    const q = qs[currentQ];
+    const total = qs.length;
+    const pct = Math.round((currentQ / total) * 100);
+
+    document.getElementById('q-counter').textContent = `Question ${currentQ + 1} of ${total}`;
+    document.getElementById('q-pct').textContent = pct + '%';
+    document.getElementById('q-bar-fill').style.width = pct + '%';
+    answered = false;
+    reorderSelected = [];
+
+    let html = `<div class="q-card">`;
+    html += `<span class="q-type-tag">${q.type === 'mcq' ? '🔘 Multiple Choice' : q.type === 'fill' ? '✏️ Fill in the Blank' : '🔀 Build the Sentence'}</span>`;
+    html += `<div class="q-text">${q.q}</div>`;
+
+    if (q.type === 'mcq') {
+      html += `<div class="mcq-options">`;
+      const letters = ['A','B','C','D'];
+      q.opts.forEach((opt, i) => {
+        html += `<button class="mcq-btn" id="opt-${i}" onclick="checkMCQ(${i})">`
+          + `<span class="mcq-letter">${letters[i]}</span>${opt}</button>`;
+      });
+      html += `</div>`;
+    } else if (q.type === 'fill') {
+      html += `<div class="fill-wrap">
+        <input class="fill-input" id="fill-inp" type="text" placeholder="Type your answer..." onkeydown="if(event.key==='Enter')checkFill()">
+        <button class="check-btn" id="fill-btn" onclick="checkFill()">Check ✓</button>
+      </div>`;
+    } else if (q.type === 'reorder') {
+      const shuffled = [...q.words].sort(() => Math.random() - 0.5);
+      html += `<div class="reorder-label">Click words to build the sentence:</div>`;
+      html += `<div class="reorder-answer" id="reorder-answer"></div>`;
+      html += `<div class="reorder-label">Word bank:</div>`;
+      html += `<div class="reorder-words" id="reorder-words">`;
+      shuffled.forEach((w, i) => {
+        html += `<div class="word-chip" id="wchip-${i}" onclick="toggleWord('${w}',${i})">${w}</div>`;
+      });
+      html += `</div>`;
+      html += `<button class="check-btn" id="reorder-btn" onclick="checkReorder()" style="margin-top:8px">Check ✓</button>`;
+    }
+
+    html += `<div class="q-feedback" id="q-feedback"></div>`;
+    html += `<button class="next-btn" id="next-btn" onclick="nextQuestion()">${currentQ + 1 < qs.length ? 'Next Question →' : 'See Results 🎯'}</button>`;
+    html += `</div>`;
+
+    document.getElementById('question-container').innerHTML = html;
+    if (q.type === 'fill') document.getElementById('fill-inp').focus();
+  }
+
+  function checkMCQ(chosen) {
+    if (answered) return;
+    answered = true;
+    const q = QUIZZES[currentQuiz].questions[currentQ];
+    const btns = document.querySelectorAll('.mcq-btn');
+    btns.forEach(b => b.disabled = true);
+    const isCorrect = chosen === q.ans;
+    btns[chosen].classList.add(isCorrect ? 'correct' : 'wrong');
+    if (!isCorrect) btns[q.ans].classList.add('correct');
+    if (isCorrect) score++;
+    showFeedback(isCorrect, q.exp);
+    document.getElementById('score-pill').textContent = `Score: ${score}`;
+    document.getElementById('next-btn').classList.add('show');
+  }
+
+  function checkFill() {
+    if (answered) return;
+    const q = QUIZZES[currentQuiz].questions[currentQ];
+    const inp = document.getElementById('fill-inp');
+    const val = inp.value.trim().toLowerCase();
+    const correct = q.ans.toLowerCase();
+    // Accept multiple possible answers separated by /
+    const alts = correct.split('/').map(s => s.trim());
+    const isCorrect = alts.some(a => val === a);
+    answered = true;
+    inp.disabled = true;
+    document.getElementById('fill-btn').disabled = true;
+    inp.classList.add(isCorrect ? 'correct' : 'wrong');
+    if (isCorrect) score++;
+    const expText = isCorrect ? q.exp : `Correct answer: <strong>${q.ans}</strong> — ${q.exp}`;
+    showFeedback(isCorrect, expText);
+    document.getElementById('score-pill').textContent = `Score: ${score}`;
+    document.getElementById('next-btn').classList.add('show');
+  }
+
+  function toggleWord(word, idx) {
+    if (answered) return;
+    const chip = document.getElementById(`wchip-${idx}`);
+    const answerBox = document.getElementById('reorder-answer');
+    if (chip.classList.contains('placed')) {
+      // Remove from answer
+      chip.classList.remove('placed');
+      const toRemove = answerBox.querySelector(`[data-idx="${idx}"]`);
+      if (toRemove) answerBox.removeChild(toRemove);
+      reorderSelected = reorderSelected.filter(item => item.idx !== idx);
+    } else {
+      // Add to answer
+      chip.classList.add('placed');
+      reorderSelected.push({ word, idx });
+      const span = document.createElement('div');
+      span.className = 'word-chip placed';
+      span.dataset.idx = idx;
+      span.textContent = word;
+      span.onclick = () => toggleWord(word, idx);
+      answerBox.appendChild(span);
+    }
+  }
+
+  function checkReorder() {
+    if (answered) return;
+    const q = QUIZZES[currentQuiz].questions[currentQ];
+    const built = reorderSelected.map(item => item.word).join(' ');
+    const isCorrect = built.trim() === q.ans.trim();
+    answered = true;
+    document.getElementById('reorder-btn').disabled = true;
+    // Color the answer chips
+    document.querySelectorAll('#reorder-answer .word-chip').forEach(c => {
+      c.classList.add(isCorrect ? 'correct-chip' : 'wrong-chip');
+    });
+    if (isCorrect) score++;
+    const expText = isCorrect ? q.exp || 'Perfect sentence!' : `Correct: <strong>${q.ans}</strong>`;
+    showFeedback(isCorrect, expText);
+    document.getElementById('score-pill').textContent = `Score: ${score}`;
+    document.getElementById('next-btn').classList.add('show');
+  }
+
+  function showFeedback(isCorrect, exp) {
+    const fb = document.getElementById('q-feedback');
+    fb.className = `q-feedback show ${isCorrect ? 'fb-correct' : 'fb-wrong'}`;
+    fb.innerHTML = isCorrect
+      ? `✅ <strong>Correct!</strong> ${exp}`
+      : `❌ <strong>Not quite.</strong> ${exp}`;
+  }
+
+  function nextQuestion() {
+    currentQ++;
+    renderQuestion();
+    document.getElementById('question-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function showResults() {
+    const total = QUIZZES[currentQuiz].questions.length;
+    const pct = Math.round((score / total) * 100);
+    document.getElementById('question-container').innerHTML = '';
+    document.getElementById('q-bar-fill').style.width = '100%';
+    document.getElementById('q-counter').textContent = `Finished!`;
+    document.getElementById('q-pct').textContent = '100%';
+
+    const screen = document.getElementById('results-screen');
+    screen.classList.add('show');
+    document.getElementById('r-score').textContent = `${score} / ${total}`;
+
+    let emoji = '😅', title = 'Keep Practicing!', msg = '';
+    let stars = 1;
+    if (pct >= 90) { emoji = '🏆'; title = 'Outstanding!'; stars = 3; }
+    else if (pct >= 70) { emoji = '🎉'; title = 'Great Job!'; stars = 2; }
+    else if (pct >= 50) { emoji = '💪'; title = 'Good Effort!'; stars = 1; }
+
+    document.getElementById('r-emoji').textContent = emoji;
+    document.getElementById('r-title').textContent = title;
+    document.getElementById('r-stars').innerHTML = '⭐'.repeat(stars) + '☆'.repeat(3 - stars);
+
+    const msgs = {
+      0: 'Don\'t worry! Go back and review the lesson, then try again.',
+      1: 'You\'re on the right track! Review the explanations and retry.',
+      2: 'Well done! A little more practice and you\'ll master this.',
+      3: 'Excellent! You have a strong command of this grammar topic.'
+    };
+    document.getElementById('r-msg').textContent = msgs[stars] + ` (${pct}% correct)`;
+    screen.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+</script>
+</body>
+</html>
